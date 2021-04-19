@@ -6,7 +6,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/api/mail/send")
-public class LawetaMail {
+public class MailController {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
