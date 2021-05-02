@@ -13,18 +13,15 @@ import pl.com.laweta.dto.MailDto;
 
 @ApplicationScoped
 public class MailService {
+
     private static final String EMAIL_SUBJECT = "Wiadomość od pomocdrogowaostroda.com.pl";
     private static final String EMAIL_BODY = "Dostałeś wiadomość od %s [%s]\n\n%s";
 
-    private final Mailer mailer;
+    @Inject
+    Mailer mailer;
 
     @ConfigProperty(name = "laweta.admin.mail-receivers")
     String mailReceivers;
-
-    @Inject
-    public MailService(Mailer mailer) {
-        this.mailer = mailer;
-    }
 
     public void sendEmail(MailDto mailDto) {
         Arrays.stream(mailReceivers.split(",")).forEach(mail -> {
