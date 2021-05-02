@@ -1,16 +1,37 @@
 package pl.com.laweta.controller;
 
-import javax.ws.rs.GET;
+import javax.inject.Inject;
+import javax.validation.Validator;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-@Path("/api/mail/send")
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+
+import pl.com.laweta.dto.MailDto;
+import pl.com.laweta.service.MailService;
+
+@Path("/api/mail")
 public class MailController {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "hello";
+    private final Validator validator;
+    private final MailService mailService;
+
+    @Inject
+    public MailController(MailService mailService, Validator validator) {
+        this.mailService = mailService;
+        this.validator = validator;
+    }
+
+    @POST
+    @Path("/send")
+    public Response sendEmail(@RequestBody MailDto mailDto) {
+        if (!validator.validate(mailDto).isEmpty()) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+
+        mailService.sendEmail(mailDto);
+        return Response.ok().build();
     }
 }
