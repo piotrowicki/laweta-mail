@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker service update --force laweta_app'
+                sh 'docker service update --force laweta_mail'
             }
         }
     }
