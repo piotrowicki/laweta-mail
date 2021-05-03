@@ -22,5 +22,10 @@ pipeline {
                 sh 'docker build -f src/main/docker/Dockerfile.jvm -t ${IMAGE_NAME} .'
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'docker service update --force laweta_app'
+            }
+        }
     }
 }
