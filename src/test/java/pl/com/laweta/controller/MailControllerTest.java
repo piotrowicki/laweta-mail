@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -16,6 +17,7 @@ import pl.com.laweta.dto.MailDto;
 
 @QuarkusTest
 @TestProfile(TestConfiguration.class)
+@Disabled
 public class MailControllerTest {
 
     private ObjectMapper mapper = new ObjectMapper();
