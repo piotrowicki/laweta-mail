@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        timeout(time: 20, unit: 'MINUTES') 
+    }
     tools {
         maven 'Maven 3.6.3'
     }
